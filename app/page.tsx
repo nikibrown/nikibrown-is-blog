@@ -7,7 +7,6 @@ import Avatar from "./avatar"
 import MoreStories from "./more-stories"
 
 import { getAllPosts } from "@/lib/api"
-import { CMS_NAME, CMS_URL } from "@/lib/constants"
 
 function Intro() {
 	return (
@@ -41,7 +40,7 @@ function HeroPost({
 			<div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
 				<div>
 					<h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-						<Link href={`/posts/${slug}`} className="hover:underline">
+						<Link href={slug} className="hover:underline">
 							{title}
 						</Link>
 					</h3>
@@ -68,14 +67,17 @@ export default async function Page() {
 		<div className="container mx-auto px-5">
 			<Intro />
 			{heroPost && (
-				<HeroPost
-					title={heroPost.title}
-					coverImage={heroPost.coverImage}
-					date={heroPost.date}
-					author={heroPost.author}
-					slug={heroPost.slug}
-					excerpt={heroPost.excerpt}
-				/>
+				<div>
+					{/* <h1>{JSON.stringify(heroPost)}</h1> */}
+					<HeroPost
+						title={heroPost.title}
+						coverImage={heroPost.coverImage}
+						date={heroPost.date}
+						author={heroPost.author}
+						slug={`${heroPost.category.category?.toLowerCase()}/${heroPost.slug}`}
+						excerpt={heroPost.excerpt}
+					/>
+				</div>
 			)}
 			<MoreStories morePosts={morePosts} />
 		</div>
